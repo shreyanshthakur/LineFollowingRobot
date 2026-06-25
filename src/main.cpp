@@ -1,13 +1,19 @@
 #include <Arduino.h>
 
-void setup() {
-  Serial.begin(115200);
+const int LED_PIN = 2;
 
-  delay(1000);
-  Serial.println("Hello World!");
+unsigned long lastToggle = 0;
+bool ledState = false;
+
+void setup() {
+    pinMode(LED_PIN, OUTPUT);
 }
 
 void loop() {
-  Serial.println("Hello from ESP32");
-  delay(1000);
+    if (millis() - lastToggle >= 1000) {
+        lastToggle = millis();
+
+        ledState = !ledState;
+        digitalWrite(LED_PIN, ledState);
+    }
 }
