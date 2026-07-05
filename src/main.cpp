@@ -1,19 +1,32 @@
 #include <Arduino.h>
-
-const int LED_PIN = 2;
-
-unsigned long lastToggle = 0;
-bool ledState = false;
+#define IN1 32
+#define IN2 33
+#define IN3 25
+#define IN4 26
 
 void setup() {
-    pinMode(LED_PIN, OUTPUT);
+    pinMode(IN1, OUTPUT);
+    pinMode(IN2, OUTPUT);
+    pinMode(IN3, OUTPUT);
+    pinMode(IN4, OUTPUT);
 }
 
 void loop() {
-    if (millis() - lastToggle >= 1000) {
-        lastToggle = millis();
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, LOW);
 
-        ledState = !ledState;
-        digitalWrite(LED_PIN, ledState);
-    }
+    digitalWrite(IN3, HIGH);
+    digitalWrite(IN4, LOW);
+
+    delay(2000);
+
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, HIGH);
+
+    digitalWrite(IN3, LOW);
+    digitalWrite(IN4, HIGH);
+
+    delay(2000);
+
+    delay(1000);
 }
