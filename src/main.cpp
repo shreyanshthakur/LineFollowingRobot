@@ -1,32 +1,32 @@
 #include <Arduino.h>
-#define IN1 32
-#define IN2 33
-#define IN3 25
-#define IN4 26
+
+#define LEFT_SENSOR_PIN 18
+#define RIGHT_SENSOR_PIN 19
 
 void setup() {
-    pinMode(IN1, OUTPUT);
-    pinMode(IN2, OUTPUT);
-    pinMode(IN3, OUTPUT);
-    pinMode(IN4, OUTPUT);
+    Serial.begin(115200);
+    pinMode(LEFT_SENSOR_PIN, INPUT);
+    pinMode(RIGHT_SENSOR_PIN, INPUT);
 }
 
 void loop() {
-    digitalWrite(IN1, HIGH);
-    digitalWrite(IN2, LOW);
+    int leftValue = digitalRead(LEFT_SENSOR_PIN);
+    int rightValue = digitalRead(RIGHT_SENSOR_PIN);
 
-    digitalWrite(IN3, HIGH);
-    digitalWrite(IN4, LOW);
+    Serial.print("L: ");
+    Serial.print(leftValue);
+    Serial.print(" | R: ");
+    Serial.println(rightValue);
 
-    delay(2000);
+    if (leftValue == LOW && rightValue == LOW) {
+        Serial.println("Both on line");
+    } else if (leftValue == LOW) {
+        Serial.println("Left on line");
+    } else if (rightValue == LOW) {
+        Serial.println("Right on line");
+    } else {
+        Serial.println("Both off line");
+    }
 
-    digitalWrite(IN1, LOW);
-    digitalWrite(IN2, HIGH);
-
-    digitalWrite(IN3, LOW);
-    digitalWrite(IN4, HIGH);
-
-    delay(2000);
-
-    delay(1000);
+    delay(200);
 }
